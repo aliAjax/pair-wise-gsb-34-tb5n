@@ -61,3 +61,34 @@ CREATE TABLE IF NOT EXISTS audit_log (
   target_id TEXT,
   created_at TEXT
 );
+
+-- 消防泵房水泵轮换台账
+CREATE TABLE IF NOT EXISTS pump_rotation (
+  id INTEGER PRIMARY KEY,
+  pump_room_id INTEGER,
+  pump_room TEXT,
+  device_id INTEGER,
+  device_code TEXT,
+  pump_name TEXT,
+  cumulative_hours REAL,
+  role TEXT,
+  maintenance_status TEXT,
+  last_rotated_at TEXT,
+  updated_at TEXT
+);
+
+-- 消防水泵倒泵（主备切换）记录
+CREATE TABLE IF NOT EXISTS pump_switch_log (
+  id INTEGER PRIMARY KEY,
+  pump_room_id INTEGER,
+  pump_room TEXT,
+  new_primary_id INTEGER,
+  new_primary_name TEXT,
+  old_primary_id INTEGER,
+  old_primary_name TEXT,
+  operator_id INTEGER,
+  reason TEXT,
+  old_primary_hours REAL,
+  new_primary_hours REAL,
+  switched_at TEXT
+);

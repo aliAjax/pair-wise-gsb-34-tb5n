@@ -28,5 +28,11 @@ LOG_TEMPLATES = {
     "HazardTicket.update",
     "HazardTicket.status",
     "HazardTicket.export"
+  ],
+  "PumpRotation": [
+    "PumpRotation.rotate",
+    "PumpRotation.maintenance",
+    "PumpRotation.hours",
+    "PumpRotation.export"
   ]
 }

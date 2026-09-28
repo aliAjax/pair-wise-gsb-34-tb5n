@@ -61,6 +61,72 @@ export const mockData = {
       "install_date": "2026-06-13T09:00:00Z",
       "status": "PLANNED",
       "next_maintenance_at": "2026-06-13T09:00:00Z"
+    },
+    {
+      "id": 101,
+      "building_id": 1,
+      "device_code": "FP-001",
+      "device_type": "FIRE_PUMP",
+      "floor": "B1",
+      "location_desc": "1号消防泵房 1号泵",
+      "install_date": "2024-03-01T09:00:00Z",
+      "status": "IN_PROGRESS",
+      "next_maintenance_at": "2026-10-15T09:00:00Z"
+    },
+    {
+      "id": 102,
+      "building_id": 1,
+      "device_code": "FP-002",
+      "device_type": "FIRE_PUMP",
+      "floor": "B1",
+      "location_desc": "1号消防泵房 2号泵",
+      "install_date": "2024-03-01T09:00:00Z",
+      "status": "IN_PROGRESS",
+      "next_maintenance_at": "2026-10-15T09:00:00Z"
+    }
+  ],
+  "pumpRotation": [
+    {
+      "id": 1,
+      "pump_room_id": 1,
+      "pump_room": "1号消防泵房",
+      "device_id": 101,
+      "device_code": "FP-001",
+      "pump_name": "1号泵",
+      "cumulative_hours": 128.5,
+      "role": "PRIMARY",
+      "maintenance_status": "RUNNING",
+      "last_rotated_at": "2026-08-01T09:00:00Z",
+      "updated_at": "2026-09-27T20:00:00Z"
+    },
+    {
+      "id": 2,
+      "pump_room_id": 1,
+      "pump_room": "1号消防泵房",
+      "device_id": 102,
+      "device_code": "FP-002",
+      "pump_name": "2号泵",
+      "cumulative_hours": 96.0,
+      "role": "STANDBY",
+      "maintenance_status": "RUNNING",
+      "last_rotated_at": "2026-08-01T09:00:00Z",
+      "updated_at": "2026-09-27T20:00:00Z"
+    }
+  ],
+  "pumpSwitchLog": [
+    {
+      "id": 1,
+      "pump_room_id": 1,
+      "pump_room": "1号消防泵房",
+      "new_primary_id": 101,
+      "new_primary_name": "1号泵",
+      "old_primary_id": 102,
+      "old_primary_name": "2号泵",
+      "operator_id": 1,
+      "reason": "月度例行倒泵",
+      "old_primary_hours": 64.0,
+      "new_primary_hours": 60.5,
+      "switched_at": "2026-08-01T09:00:00Z"
     }
   ],
   "inspectionTask": [
