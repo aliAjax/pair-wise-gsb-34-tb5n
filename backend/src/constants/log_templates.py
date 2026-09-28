@@ -28,5 +28,17 @@ LOG_TEMPLATES = {
     "HazardTicket.update",
     "HazardTicket.status",
     "HazardTicket.export"
+  ],
+  "FirePump": [
+    "FirePump.create",
+    "FirePump.hours",
+    "FirePump.repair",
+    "FirePump.export"
+  ],
+  "PumpSwitch": [
+    "PumpSwitch.rotate",
+    "PumpSwitch.confirm",
+    "PumpSwitch.review",
+    "PumpSwitch.export"
   ]
 }

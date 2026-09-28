@@ -6,6 +6,8 @@ from src.routes.fire_device_routes import router as fire_device_router
 from src.routes.inspection_task_routes import router as inspection_task_router
 from src.routes.inspection_result_routes import router as inspection_result_router
 from src.routes.hazard_ticket_routes import router as hazard_ticket_router
+from src.routes.fire_pump_routes import router as fire_pump_router
+from src.routes.pump_switch_record_routes import router as pump_switch_record_router
 
 app = FastAPI(title="消防设施巡检维保平台")
 app.middleware("http")(auth_middleware)
@@ -20,3 +22,5 @@ app.include_router(fire_device_router)
 app.include_router(inspection_task_router)
 app.include_router(inspection_result_router)
 app.include_router(hazard_ticket_router)
+app.include_router(fire_pump_router)
+app.include_router(pump_switch_record_router)

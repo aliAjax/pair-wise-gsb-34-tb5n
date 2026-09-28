@@ -53,6 +53,29 @@ CREATE TABLE IF NOT EXISTS hazard_ticket (
   closed_at TEXT
 );
 
+CREATE TABLE IF NOT EXISTS fire_pump (
+  id INTEGER PRIMARY KEY,
+  pump_code TEXT,
+  name TEXT,
+  cumulative_hours REAL,
+  role TEXT,
+  repair_status TEXT,
+  repair_note TEXT,
+  last_switched_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS pump_switch_record (
+  id INTEGER PRIMARY KEY,
+  switched_at TEXT,
+  from_pump_id TEXT,
+  to_pump_id TEXT,
+  operator TEXT,
+  from_pump_hours REAL,
+  to_pump_hours REAL,
+  note TEXT,
+  confirmed TEXT
+);
+
 CREATE TABLE IF NOT EXISTS audit_log (
   id INTEGER PRIMARY KEY,
   actor TEXT,

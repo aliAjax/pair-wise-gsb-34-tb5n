@@ -52,11 +52,25 @@ backend/src/routes, controllers, services, models, repositories, middlewares, co
 - 数据库使用命名卷，避免绑定中文路径。
 - 常见问题：端口占用时修改 `.env` 中端口后重启；需要重置数据时执行 `docker compose down -v`。
 
+## 消防泵房水泵轮换台账
+
+针对“长期只用主泵、备用泵久不启动、故障时切不过来”的问题，在「消防设备台账」页（`/devices`）增加水泵轮换台账，并在「消防合规总览」页（`/dashboard`）联动风险：
+
+- 每台泵记录**累计运行时长（小时）**、**当前主备角色**（PRIMARY/STANDBY）与**检修状态**（RUNNABLE/UNDER_REPAIR）。
+- 主备泵**累计时长差超过 20 小时**（`>` 20，阈值见 `constants/pumpRules` 的 `PUMP_ROTATION_HOURS_LIMIT`）时提示倒泵。
+- 倒泵需勾选“已确认新主泵运行”，切换后**新主泵确认、旧主泵转备用**，并在切换记录台账中保留记录（操作人、时间、切换前后累计时长、确认标记）。
+- **检修中的泵不能设为主泵**；把当前主泵送修时会自动切到可用备用泵。
+- **两台泵都不可用时在总览标出停供风险**（红色横幅），并禁止倒泵。
+
 ## 枚举/常量出现位置清单
 
 - DeviceType: constants/DeviceType、types/DeviceType、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - InspectionStatus: constants/InspectionStatus、types/InspectionStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - HazardSeverity: constants/HazardSeverity、types/HazardSeverity、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- PumpRole: 前端 `constants/PumpRole.ts`、`types/PumpRole.ts`、`constants/statusText.ts`、`components/common/PumpRoleBadge.tsx`、`utils/pumpRotation.ts`；后端 `constants/pump_role.py`、`services/fire_pump_service.py`、种子与 `database/init.sql`（fire_pump.role）。
+- PumpRepairStatus: 前端 `constants/PumpRepairStatus.ts`、`types/PumpRepairStatus.ts`、`constants/statusText.ts`、`components/common/PumpRepairStatusTag.tsx`、`utils/pumpRotation.ts`；后端 `constants/pump_repair_status.py`、`services/fire_pump_service.py`、种子与 `database/init.sql`（fire_pump.repair_status）。
+- 轮换阈值 20 小时: 前端 `constants/pumpRules.ts`、`utils/pumpRotation.ts`、`hooks/usePumpRotation.ts`；后端 `constants/pump_rules.py`、`services/fire_pump_service.py`。
+- 轮换错误码/日志: 前后端 `errorCodes/errorMessages`（PUMP_TARGET_UNDER_REPAIR、PUMP_NO_AVAILABLE_STANDBY、PUMP_SUPPLY_AT_RISK）与 `logTemplates`（FirePump、PumpSwitch）。
 
 ## 为什么会牵一发动全身
 

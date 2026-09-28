@@ -127,6 +127,41 @@ export const mockData = {
       "note": "note 3"
     }
   ],
+  "firePump": [
+    {
+      "id": 1,
+      "pump_code": "FP-01",
+      "name": "1# 消防泵（长期主用）",
+      "cumulative_hours": 186.5,
+      "role": "PRIMARY",
+      "repair_status": "RUNNABLE",
+      "repair_note": "",
+      "last_switched_at": "2026-09-01T09:00:00Z"
+    },
+    {
+      "id": 2,
+      "pump_code": "FP-02",
+      "name": "2# 消防泵（长期备用）",
+      "cumulative_hours": 142.0,
+      "role": "STANDBY",
+      "repair_status": "RUNNABLE",
+      "repair_note": "",
+      "last_switched_at": "2026-09-01T09:00:00Z"
+    }
+  ],
+  "pumpSwitch": [
+    {
+      "id": 1001,
+      "switched_at": "2026-09-01T09:00:00Z",
+      "from_pump_id": 2,
+      "to_pump_id": 1,
+      "operator": "值班工程师",
+      "from_pump_hours": 120,
+      "to_pump_hours": 118,
+      "note": "月度轮换，新主泵已确认，旧主泵转备用",
+      "confirmed": true
+    }
+  ],
   "hazardTicket": [
     {
       "id": 1,

@@ -1,15 +1,20 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import { routes } from "./router/routes";
-import { mockData } from "./mocks/seedData";
 import { StatusBadge } from "./components/common/StatusBadge";
-import { StatCard } from "./components/common/StatCard";
+import { DashboardPage } from "./pages/DashboardPage";
+import { DevicesPage } from "./pages/DevicesPage";
 import "./styles.css";
 
-function Page({ name }: { name: string }) {
-  const entities = Object.entries(mockData);
-  const total = useMemo(() => entities.reduce((sum, [, rows]) => sum + rows.length, 0), [entities]);
-  return <main className="page">
+const pageRegistry: Record<string, () => React.ReactElement> = {
+  "/dashboard": DashboardPage,
+  "/devices": DevicesPage
+};
+
+function Page({ name, route }: { name: string; route: string }) {
+  const Registered = pageRegistry[route];
+  if (Registered) return <Registered />;
+  return <section className="page">
     <section className="page-head">
       <div>
         <p className="eyebrow">fire-inspect</p>
@@ -17,26 +22,10 @@ function Page({ name }: { name: string }) {
       </div>
       <StatusBadge value="LOCAL_DATA" />
     </section>
-    <section className="metrics">
-      <StatCard label="核心模型" value={entities.length} />
-      <StatCard label="本地记录" value={total} />
-      <StatCard label="共享枚举" value={3} />
+    <section className="panel">
+      <p>该模块正在建设中，当前评审请使用「消防合规总览」与「消防设备台账」。</p>
     </section>
-    <section className="workbench">
-      <div className="panel wide">
-        <h2>业务数据</h2>
-        <div className="table">
-          {entities.map(([key, rows]) => <article key={key} className="row">
-            <strong>{key}</strong><span>{rows.length} 条</span><StatusBadge value={Object.values(rows[0] ?? {})[1] as string ?? "READY"} />
-          </article>)}
-        </div>
-      </div>
-      <div className="panel">
-        <h2>联动检查</h2>
-        <p>页面、store、API、构造器、日志模板和枚举常量均按提示词拆分，适合评审跨文件修改能力。</p>
-      </div>
-    </section>
-  </main>;
+  </section>;
 }
 
 function App() {
@@ -47,8 +36,11 @@ function App() {
       <div className="brand">消防设施巡检维保平台</div>
       <nav>{routes.map((route) => <button key={route.route} className={active === route.route ? "active" : ""} onClick={() => setActive(route.route)}>{route.name}</button>)}</nav>
     </aside>
-    <Page name={current?.name ?? "工作台"} />
+    <div className="page">
+      <Page name={current?.name ?? "工作台"} route={current?.route ?? "/dashboard"} />
+    </div>
   </div>;
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
+
